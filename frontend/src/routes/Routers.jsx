@@ -8,6 +8,7 @@ import Tutors from '../pages/Tutor/Tutors';
 import TutorDetails from '../pages/Tutor/TutorDetails';
 import MyAccount from '../Dashboard/user-account/MyAccount';
 import Dashboard from '../Dashboard/tutor-account/Dashboard';
+import Booking from '../pages/Booking';
 
 import {Routes, Route} from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
@@ -18,6 +19,7 @@ const Router = () => {
       <Route path='/' element={<Home />} />
       <Route path='/home' element={<Home />} />
       <Route path='/tutors' element={<Tutors />} />
+      <Route path='/bookings' element={<Booking />} />
       <Route path='/tutors/:id' element={<TutorDetails />} />
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Signup />} />

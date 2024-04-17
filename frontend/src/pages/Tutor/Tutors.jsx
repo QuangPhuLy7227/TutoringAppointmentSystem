@@ -1,16 +1,27 @@
 import TutorCard from './../../components/Tutors/TutorCard'
-import { doctors } from './../../assets/data/doctors'
+
 import Testimonial from '../../components/Testimonial/Testimonial';
 
 import { BASE_URL } from "./../../config";
 import useFetchData from "./../../hooks/useFetchData";
 import Loader from "../../components/Loader/Loading";
 import Error from "../../components/Error/Error";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Tutors = () => {
   const [query, setQuery] = useState('');
-  const { data:tutors, loading, error } = useFetchData(`${BASE_URL}/tutors`);
+  const [debounceQuery, setDebounceQuery] = useState("");
+  const handleSearch = () => {
+    setQuery(query.trim());
+  }
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebounceQuery(query);
+    }, 700);
+    return () => clearTimeout(timeout);
+  }, [query]);
+  const { data:tutors, loading, error } = useFetchData(`${BASE_URL}/tutors?query=${debounceQuery}`);
+  
   return (
     <>
       <section className='bg-[#fff9ea]'>
@@ -18,7 +29,7 @@ const Tutors = () => {
           <h2 className='heading'>Find Your Tutor</h2>
           <div className='max-w-[570px] mt-[30px] mx-auto bg-[#0066ff2c] rounded-md flex items-center justify-between'>
             <input type="search" className='py-4 pl-4 pr-2 bg-transparent w-full focus:outline-none cursor-pointer placeholder:text-textColor' placeholder="Search Tutor by name or specification" value={query} onChange={e => setQuery(e.target.value)} />
-            <button className='btn mt-0 rounded-[0px] rounded-r-md'>Search</button>
+            <button className='btn mt-0 rounded-[0px] rounded-r-md' onClick={handleSearch}>Search</button>
           </div>
         </div>
       </section>

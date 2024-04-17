@@ -15,6 +15,10 @@ const navLinks = [
     display:'Find Your Tutor',
   },
   {
+    path:'/bookings',
+    display:'Bookings',
+  },
+  {
     path:'/services',
     display:'Services',
   },
